@@ -1,0 +1,18 @@
+[
+  {
+    "date": "21-12-98",
+    "hours": "12",
+    "description": "went well",
+    "project": "js",
+    "comments": "good",
+    "links": "www.google.com"
+  },
+  {
+    "date": "15-12-98",
+    "hours": "11",
+    "description": "went really well",
+    "project": "js and html",
+    "comments": "very good",
+    "links": "www.youtube.com"
+  }
+]
