@@ -1,37 +1,82 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const form = () => {
-  const [name, setName] = useState("");
-  const handleSubmit = () => {
-    async function postData(url = "", data = {}) {
-      // Default options are marked with *
-      const response = await fetch(url, {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        mode: "cors", // no-cors, *cors, same-origin
-        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: "same-origin", // include, *same-origin, omit
-        headers: {
-          "Content-Type": "application/json",
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        redirect: "follow", // manual, *follow, error
-        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-      });
-      return response.json(); // parses JSON response into native JavaScript objects
-    }
+const Form = ({ tasks, setTasks }) => {
+  const [date, setDate] = useState("");
+  const [hours, setHours] = useState("");
+  const [desc, setDesc] = useState("");
+  const [project, setProject] = useState("");
+  const [comments, setComments] = useState("");
 
-    postData("/submit", { answer: 42 }).then((data) => {
-      console.log(data); // JSON data parsed by `data.json()` call
-    });
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const obj = {
+      date: date,
+      hours: hours,
+      description: desc,
+      project: project,
+      comments: comments,
+    };
+    //tasks.push(obj);
+
+    setTasks((prevTask) => [...prevTask, obj]);
+
+    setDate("");
+    setHours("");
+    setDesc("");
+    setProject("");
+    setComments("");
   };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label for="fname">First name:</label>
-      <input type="text" id="fname" name="fname" onChange={(e)=>setName(e.target.value)} value="John" />
-      <input type="submit" value="Submit" />
+    <form className="taskform" onSubmit={onSubmit}>
+      <div className="form-control">
+        <label>Date</label>
+        <input
+          type="text"
+          placeholder="Add Date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+      </div>
+      <div className="form-control">
+        <label>Hours</label>
+        <input
+          type="text"
+          placeholder="Add Hours"
+          value={hours}
+          onChange={(e) => setHours(e.target.value)}
+        />
+      </div>
+      <div className="form-control">
+        <label>Description</label>
+        <input
+          type="text"
+          placeholder="Add Description"
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+        />
+      </div>
+      <div className="form-control">
+        <label>Project</label>
+        <input
+          type="text"
+          placeholder="Add Project Name"
+          value={project}
+          onChange={(e) => setProject(e.target.value)}
+        />
+      </div>
+      <div className="form-control">
+        <label>Comments</label>
+        <input
+          type="text"
+          placeholder="Add Comments"
+          value={comments}
+          onChange={(e) => setComments(e.target.value)}
+        />
+      </div>
+      <input type="submit" value="Save Entry" className="btn btn-block" />
     </form>
   );
 };
 
-export default form;
+export default Form;

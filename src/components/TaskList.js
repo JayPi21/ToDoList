@@ -1,34 +1,32 @@
-import React from "react";
-import data from "../data/data.json";
-import Task from "./Task";
+import React, { useEffect, useState } from "react";
+import Item from "./Item";
+//import data from "../data/data.json";
 
-const TaskList = () => {
+const TaskList = ({ tasks }) => {
+  const [items, setItems] = useState(tasks);
+  useEffect(() => {
+    setItems(tasks);
+  }, [tasks]);
   return (
-    // <div>
+    // <div></div>
     //   {data.map((itrtr) => <h1>{itrtr.id}</h1>
     //   )}
     // </div>
     <table>
-    <tr>
-    <th>date</th>
-    <th>hours</th>
-    <th>description</th>
-    <th>project</th>
-    <th>comments</th>
-    <th>links</th>
-  </tr>
-  {/* {data.map((item)=><Task myitem={item} key={item.date}/>)} */}
-  {data.map((item)=><tr>
-            <td>{item.date}</td>
-            <td>{item.hours}</td>
-            <td>{item.description}</td>
-            <td>{item.project}</td>
-            <td>{item.comments}</td>
-            <td>{item.links}</td>
-        </tr>)}
+      <tr>
+        <th>date</th>
+        <th>hours</th>
+        <th>description</th>
+        <th>project</th>
+        <th>comments</th>
+        <th>links</th>
+      </tr>
+      {items?.map((item, index) => (
+        <Item item={item} key={index} />
+      ))}
     </table>
     // <div>
-    //        
+    //
     //     </div>
   );
 };
